@@ -52,6 +52,7 @@
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.FromArgb(0, 192, 192);
+            pnlMenu.Controls.Add(pnlSales);
             pnlMenu.Controls.Add(btnSettings);
             pnlMenu.Controls.Add(btnReports);
             pnlMenu.Controls.Add(btnTransaction);
@@ -143,6 +144,7 @@
             btnCustomer.TabIndex = 2;
             btnCustomer.Text = "CUSTOMER";
             btnCustomer.UseVisualStyleBackColor = false;
+            btnCustomer.Click += btnCustomer_Click;
             // 
             // btnCategory
             // 
@@ -153,6 +155,7 @@
             btnCategory.TabIndex = 1;
             btnCategory.Text = "CATEGORY";
             btnCategory.UseVisualStyleBackColor = false;
+            btnCategory.Click += btnCategory_Click;
             // 
             // btnProducts
             // 
@@ -169,7 +172,7 @@
             // 
             pnlSales.BackColor = Color.Transparent;
             pnlSales.Controls.Add(btnSales);
-            pnlSales.Location = new Point(126, 68);
+            pnlSales.Location = new Point(120, 278);
             pnlSales.Name = "pnlSales";
             pnlSales.Size = new Size(672, 303);
             pnlSales.TabIndex = 4;
@@ -204,7 +207,6 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(802, 450);
-            Controls.Add(pnlSales);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(pnlMenu);

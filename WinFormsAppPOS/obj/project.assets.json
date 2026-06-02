@@ -452,23 +452,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\WebUser\\.nuget\\packages\\": {},
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\WebUser\\Desktop\\Repo\\WinFormsAppPOS\\WinFormsAppPOS\\WinFormsAppPOS.csproj",
+      "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\Dacayo_Repo\\WinFormsAppPOS\\WinFormsAppPOS\\WinFormsAppPOS.csproj",
       "projectName": "WinFormsAppPOS",
-      "projectPath": "C:\\Users\\WebUser\\Desktop\\Repo\\WinFormsAppPOS\\WinFormsAppPOS\\WinFormsAppPOS.csproj",
-      "packagesPath": "C:\\Users\\WebUser\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\WebUser\\Desktop\\Repo\\WinFormsAppPOS\\WinFormsAppPOS\\obj\\",
+      "projectPath": "C:\\Users\\ADMIN\\Desktop\\Dacayo_Repo\\WinFormsAppPOS\\WinFormsAppPOS\\WinFormsAppPOS.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ADMIN\\Desktop\\Dacayo_Repo\\WinFormsAppPOS\\WinFormsAppPOS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\WebUser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

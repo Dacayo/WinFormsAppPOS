@@ -44,11 +44,6 @@
             lblEmail = new Label();
             txtCustomerID = new TextBox();
             lblCustomerID = new Label();
-            ID = new DataGridViewTextBoxColumn();
-            dgvName = new DataGridViewTextBoxColumn();
-            Address = new DataGridViewTextBoxColumn();
-            Contact = new DataGridViewTextBoxColumn();
-            Email = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).BeginInit();
             SuspendLayout();
             // 
@@ -102,6 +97,7 @@
             btnEdit.TabIndex = 5;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -111,6 +107,7 @@
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
@@ -120,6 +117,7 @@
             btnClear.TabIndex = 7;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
             // button1
             // 
@@ -134,14 +132,16 @@
             // 
             dgvCustomer.AllowUserToAddRows = false;
             dgvCustomer.AllowUserToDeleteRows = false;
+            dgvCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomer.Columns.AddRange(new DataGridViewColumn[] { ID, dgvName, Address, Contact, Email });
             dgvCustomer.Location = new Point(27, 257);
             dgvCustomer.Name = "dgvCustomer";
             dgvCustomer.ReadOnly = true;
             dgvCustomer.RowHeadersVisible = false;
+            dgvCustomer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCustomer.Size = new Size(543, 181);
             dgvCustomer.TabIndex = 9;
+            dgvCustomer.CellClick += dgvCustomer_CellClick;
             // 
             // txtContact
             // 
@@ -191,41 +191,6 @@
             lblCustomerID.TabIndex = 14;
             lblCustomerID.Text = "Customer ID:";
             // 
-            // ID
-            // 
-            ID.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            ID.HeaderText = "ID";
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            // 
-            // dgvName
-            // 
-            dgvName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvName.HeaderText = "Name";
-            dgvName.Name = "dgvName";
-            dgvName.ReadOnly = true;
-            // 
-            // Address
-            // 
-            Address.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Address.HeaderText = "Address";
-            Address.Name = "Address";
-            Address.ReadOnly = true;
-            // 
-            // Contact
-            // 
-            Contact.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Contact.HeaderText = "Contact";
-            Contact.Name = "Contact";
-            Contact.ReadOnly = true;
-            // 
-            // Email
-            // 
-            Email.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Email.HeaderText = "Email";
-            Email.Name = "Email";
-            Email.ReadOnly = true;
-            // 
             // frmCustomer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -250,6 +215,7 @@
             Controls.Add(lblCustomerName);
             Name = "frmCustomer";
             Text = "Customer Maintenance";
+            Load += frmCustomer_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -273,10 +239,5 @@
         private Label lblEmail;
         private TextBox txtCustomerID;
         private Label lblCustomerID;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn dgvName;
-        private DataGridViewTextBoxColumn Address;
-        private DataGridViewTextBoxColumn Contact;
-        private DataGridViewTextBoxColumn Email;
     }
 }

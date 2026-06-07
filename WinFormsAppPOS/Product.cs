@@ -6,11 +6,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using MySql.Data.MySqlClient;
 
 namespace WinFormsAppPOS
 {
     public partial class frmProduct : Form
     {
+        string connectionString = "Server=localhost;Database=pos_db;Uid=root;Pwd=;";
 
         public frmProduct()
         {

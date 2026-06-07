@@ -19,134 +19,289 @@ namespace WinFormsAppPOS
             InitializeComponent();
             Reset();
         }
-        int idNum = 0;
-        public int getProductId(int _id)
+
+        public void showData()
         {
-            idNum = idNum + 1;
-            return idNum;
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT * from Products";
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dgvProducts.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nProducts ERROR");
+                    conn.Dispose();
+                }
+            }
+        }
+
+        public string getId()
+        {
+            string customerID = "001";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string sqlQuery = "SELECT MAX(ProductID) FROM Products";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            int lastID = Convert.ToInt32(result);
+                            customerID = (lastID + 1).ToString("D3");
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+
+                }
+
+            }
+
+            return txtProductID.Text = customerID;
         }
         public void Reset()
         {
-            txtProductId.Enabled = false;
+            txtProductID.Enabled = false;
             txtProductName.Enabled = false;
+            txtDescription.Enabled = false;
             txtPrice.Enabled = false;
-            cmbCategory.Enabled = false;
-            cmbCategory.SelectedIndex = 0;
+            txtStockQuantity.Enabled = false;
         }
         public void Clear()
         {
-            txtProductId.Text = string.Empty;
-            txtProductName.Text = string.Empty;
-            txtPrice.Text = string.Empty;
-            cmbCategory.SelectedIndex = 0;
+            txtProductID.Clear();
+            txtProductName.Clear();
+            txtDescription.Clear();
+            txtPrice.Clear();
+            txtStockQuantity.Clear();
         }
-        public void InputEnable()
+        public void enable()
         {
-            txtProductId.Enabled = false;
+            txtProductID.Enabled = false;
             txtProductName.Enabled = true;
+            txtDescription.Enabled = true;
             txtPrice.Enabled = true;
-            cmbCategory.Enabled = true;
-            cmbCategory.SelectedIndex = 0;
+            txtStockQuantity.Enabled = true;
         }
-        private void btnAdd_Click(object sender, EventArgs e)
+
+        public void inputValue()
         {
-            if (btnAdd.Text == "ADD")
-            {
-                idNum = getProductId(idNum);
-                txtProductId.Text = "00" + idNum;
-                btnAdd.Text = "SAVE";
-                InputEnable();
-            }
-            else if (btnAdd.Text == "SAVE")
-            {
-                string id = txtProductId.Text;
-                string name = txtProductName.Text;
-                string price = txtPrice.Text;
-                string category = cmbCategory.Text;
-                dgvProducts.Rows.Add(id, name, price, category);
-                btnAdd.Text = "ADD";
-                Clear();
-                Reset();
-            }
+            txtProductID.Text = dgvProducts.SelectedRows[0].Cells[0].Value.ToString();
+            txtProductName.Text = dgvProducts.SelectedRows[0].Cells[1].Value.ToString();
+            txtDescription.Text = dgvProducts.SelectedRows[0].Cells[2].Value.ToString();
+            txtPrice.Text = dgvProducts.SelectedRows[0].Cells[3].Value.ToString();
+            txtStockQuantity.Text = dgvProducts.SelectedRows[0].Cells[4].Value.ToString();
 
         }
+
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (btnAdd.Text.Equals("ADD"))
+            {
+                getId();
+                enable();
+                btnAdd.Text = "SAVE";
+                txtProductName.Focus();
+                return;
+            }
+
+            if (btnAdd.Text.Equals("SAVE"))
+            {
+                if (string.IsNullOrEmpty(txtProductName.Text))
+                {
+                    MessageBox.Show("Fill up required field.");
+                    txtProductName.Focus();
+                }
+
+                else if (string.IsNullOrEmpty(txtPrice.Text))
+                {
+                    MessageBox.Show("Fill up required field.");
+                    txtPrice.Focus();
+                }
+
+                else if (string.IsNullOrEmpty(txtStockQuantity.Text))
+                {
+                    MessageBox.Show("Fill up required field.");
+                    txtStockQuantity.Focus();
+                }
+
+                else
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    {
+                        try
+                        {
+                            conn.Open();
+                            string sqlQuery = "INSERT INTO Products (ProductID, ProductName, Description, UnitPrice, StockQuantity)" +
+                                              "VALUES (@ProductID, @ProductName, @Description, @UnitPrice, @StockQuantity)";
+
+                            using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@ProductID", txtProductID.Text);
+                                cmd.Parameters.AddWithValue("@ProductName", txtProductName.Text);
+                                cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
+                                cmd.Parameters.AddWithValue("@UnitPrice", txtPrice.Text);
+                                cmd.Parameters.AddWithValue("@StockQuantity", txtStockQuantity.Text);
+                                cmd.ExecuteNonQuery();
+
+                                MessageBox.Show("Product added successfully!", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                conn.Dispose();
+                            }
+
+                        }
+
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message + "\nProducts ERROR");
+                        }
+                    }
+                    Reset();
+                    Clear();
+                    showData();
+                    btnAdd.Text = "ADD";
+                    return;
+                }
+            }
+        }
+
+
         private void btnClear_Click(object sender, EventArgs e)
         {
             Clear();
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (btnEdit.Text == "EDIT")
+            if (btnEdit.Text.Equals("EDIT"))
             {
-                if (dgvProducts.SelectedRows.Count > 0)
-                {
-                    btnEdit.Text = "UPDATE";
-                    InputEnable();
-                    txtProductId.Text = dgvProducts.SelectedRows[0].Cells["ID"].Value.ToString();
-                    txtProductName.Text = dgvProducts.SelectedRows[0].Cells["NAME"].Value.ToString();
-                    txtPrice.Text = dgvProducts.SelectedRows[0].Cells["PRICE"].Value.ToString();
-                    cmbCategory.Text = dgvProducts.SelectedRows[0].Cells["CATEGORY"].Value.ToString();
-                }
-                else
-                {
-                    MessageBox.Show("Please select data on the list.");
-                }
+                inputValue();
+                enable();
+                btnEdit.Text = "UPDATE";
+                txtProductName.Focus();
+                return;
             }
-            else if (btnEdit.Text == "UPDATE")
-            {
-                for (int i = 0; i < dgvProducts.Rows.Count - 1; i++)
-                {
-                    if (dgvProducts.Rows[i].Cells["ID"].Value.ToString() == txtProductId.Text)
-                    {
-                        dgvProducts.Rows[i].Cells["ID"].Value = txtProductId.Text;
-                        dgvProducts.Rows[i].Cells["NAME"].Value = txtProductName.Text;
-                        dgvProducts.Rows[i].Cells["PRICE"].Value = txtPrice.Text;
-                        dgvProducts.Rows[i].Cells["CATEGORY"].Value = cmbCategory.Text;
 
-                        MessageBox.Show("SUCCESSFULLY UPDATED");
+            else if (btnEdit.Text.Equals("UPDATE"))
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    try
+                    {
+                        conn.Open();
+                        string sqlQuery = "UPDATE Products " +
+                                          "SET ProductName = @ProductName, " +
+                                            "Description = @Description, " +
+                                            "UnitPrice = @UnitPrice, " +
+                                            "StockQuantity = @StockQuantity " +
+                                          "WHERE ProductID = @ProductID";
+
+                        using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@ProductID", txtProductID.Text);
+                            cmd.Parameters.AddWithValue("@ProductName", txtProductName.Text);
+                            cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
+                            cmd.Parameters.AddWithValue("@UnitPrice", txtPrice.Text);
+                            cmd.Parameters.AddWithValue("@StockQuantity", txtStockQuantity.Text);
+                            cmd.ExecuteNonQuery();
+
+                            MessageBox.Show("Product updated successfully!", "Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            conn.Dispose();
+                        }
                     }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "\nProduct ERROR");
+                    }
+                    Reset();
+                    Clear();
+                    showData();
+                    btnEdit.Text = "EDIT";
+                    return;
                 }
-                btnEdit.Text = "EDIT";
-                Clear();
-                Reset();
             }
         }
 
         private void frmProduct_Load(object sender, EventArgs e)
         {
-            dgvProducts.Rows.Add(001, "Coke", 25, "Drinks");
-            dgvProducts.Rows.Add(002, "Sprite", 25, "Drinks");
-            dgvProducts.Rows.Add(003, "Royal", 25, "Drinks");
-            dgvProducts.Rows.Add(004, "RC", 25, "Drinks");
-            dgvProducts.Rows.Add(005, "C2", 25, "Drinks");
-            dgvProducts.Rows.Add(006, "Coke", 25, "Drinks");
-            idNum = 6;
+            showData();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvProducts.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select row to delete", "No selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+
+            }
+            DialogResult confirm = MessageBox.Show("Are you sure you want to delete the selected row(s)?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm == DialogResult.Yes)
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    try
+                    {
+                        conn.Open();
+                        string sqlQuery = "DELETE FROM Products WHERE ProductID = @ProductID";
+
+                        using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@ProductID", txtProductID.Text);
+                            cmd.ExecuteNonQuery();
+
+                            MessageBox.Show("Product deleted successfully!", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            conn.Dispose();
+                        }
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "\nProduct ERROR");
+                    }
+                    Clear();
+                    showData();
+                    return;
+                }
+            }
+        }
+
+        private void dgvProducts_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvProducts.Rows[e.RowIndex];
+
+                txtProductID.Text = row.Cells["ProductID"].Value.ToString();
+                txtProductName.Text = row.Cells["ProductName"].Value.ToString();
+                txtDescription.Text = row.Cells["Description"].Value.ToString();
+                txtPrice.Text = row.Cells["UnitPrice"].Value.ToString();
+                txtStockQuantity.Text = row.Cells["StockQuantity"].Value.ToString();
+            }
         }
 
         private void dgvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-        }
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (dgvProducts.SelectedRows.Count == 0)
-            {
-               MessageBox.Show("Please select row to delete","No selection",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                return;
-                
-            }
-            DialogResult confirm = MessageBox.Show("Are you sure you want to delete the selected row(s)?","Confirm Delete",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-            if (confirm == DialogResult.Yes)
-            {
-                foreach (DataGridViewRow row in dgvProducts.SelectedRows)
-                {
-                    if (!row.IsNewRow)
-                    {
-                        dgvProducts.Rows.Remove(row);
-                        MessageBox.Show("Selected row(s) deleted successfully.","Success",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                    }
-                }
-            }
         }
     }
 }

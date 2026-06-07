@@ -36,7 +36,6 @@
             btnEdit = new Button();
             btnDelete = new Button();
             btnClear = new Button();
-            button1 = new Button();
             dgvCustomer = new DataGridView();
             txtContact = new TextBox();
             lblContact = new Label();
@@ -44,6 +43,7 @@
             lblEmail = new Label();
             txtCustomerID = new TextBox();
             lblCustomerID = new Label();
+            btnBack = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).BeginInit();
             SuspendLayout();
             // 
@@ -119,15 +119,6 @@
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
             // 
-            // button1
-            // 
-            button1.Location = new Point(12, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(41, 36);
-            button1.TabIndex = 8;
-            button1.Text = "<";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // dgvCustomer
             // 
             dgvCustomer.AllowUserToAddRows = false;
@@ -191,12 +182,23 @@
             lblCustomerID.TabIndex = 14;
             lblCustomerID.Text = "Customer ID:";
             // 
+            // btnBack
+            // 
+            btnBack.Location = new Point(12, 12);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(51, 31);
+            btnBack.TabIndex = 16;
+            btnBack.Text = "<";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
+            // 
             // frmCustomer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSeaGreen;
             ClientSize = new Size(599, 450);
+            Controls.Add(btnBack);
             Controls.Add(txtCustomerID);
             Controls.Add(lblCustomerID);
             Controls.Add(txtEmail);
@@ -204,7 +206,6 @@
             Controls.Add(txtContact);
             Controls.Add(lblContact);
             Controls.Add(dgvCustomer);
-            Controls.Add(button1);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
@@ -231,7 +232,6 @@
         private Button btnEdit;
         private Button btnDelete;
         private Button btnClear;
-        private Button button1;
         private DataGridView dgvCustomer;
         private TextBox txtContact;
         private Label lblContact;
@@ -239,5 +239,6 @@
         private Label lblEmail;
         private TextBox txtCustomerID;
         private Label lblCustomerID;
+        private Button btnBack;
     }
 }

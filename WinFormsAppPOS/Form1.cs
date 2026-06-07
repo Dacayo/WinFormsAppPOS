@@ -34,6 +34,7 @@ namespace WinFormsAppPOS
         {
             frmCustomer cm = new frmCustomer();
             cm.Show();
+            this.Close();
         }
     }
 }

@@ -44,6 +44,7 @@ namespace WinFormsAppPOS
 
                                 frmMain frm = new frmMain();
                                 frm.Show();
+                                this.Hide();
 
                             }
                             else

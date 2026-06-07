@@ -13,11 +13,38 @@ namespace WinFormsAppPOS
     {
         string connectionString = "Server=localhost;Database=pos_db;Uid=root;Pwd=;";
 
-        int idNum = 2;
-        public int getProductId(int _id)
+        
+        public string getId()
         {
-            idNum = idNum + 1;
-            return idNum;
+            string customerID = "001";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string sqlQuery = "SELECT MAX(CustomerID) FROM Customers";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            int lastID = Convert.ToInt32(result);
+                            customerID = (lastID + 1).ToString("D3");
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+
+                }
+                
+            }
+
+            return txtCustomerID.Text = customerID;
         }
 
         public void disable()
@@ -80,8 +107,7 @@ namespace WinFormsAppPOS
         {
             if (btnAdd.Text.Equals("New"))
             {
-                idNum = getProductId(idNum);
-                txtCustomerID.Text = "00" + idNum;
+                getId();
                 btnAdd.Text = "Add";
                 enable();
                 txtCustomerName.Focus();
@@ -276,6 +302,13 @@ namespace WinFormsAppPOS
         private void btnClear_Click(object sender, EventArgs e)
         {
             clear();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            frmMain main = new frmMain();
+            main.Show();
+            this.Close();
         }
     }
 }

@@ -28,67 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
+            lblProductID = new Label();
+            lblProductName = new Label();
+            lblPrice = new Label();
+            lblStockQuantity = new Label();
             btnAdd = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
             btnClear = new Button();
             dgvProducts = new DataGridView();
-            id = new DataGridViewTextBoxColumn();
-            name = new DataGridViewTextBoxColumn();
-            price = new DataGridViewTextBoxColumn();
-            category = new DataGridViewTextBoxColumn();
             txtProductName = new TextBox();
             txtPrice = new TextBox();
-            txtProductId = new TextBox();
-            cmbCategory = new ComboBox();
+            txtProductID = new TextBox();
+            txtDescription = new TextBox();
+            lblDescription = new Label();
+            txtStockQuantity = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // lblProductID
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(40, 22);
-            label1.Name = "label1";
-            label1.Size = new Size(68, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Product id :";
+            lblProductID.AutoSize = true;
+            lblProductID.Location = new Point(40, 22);
+            lblProductID.Name = "lblProductID";
+            lblProductID.Size = new Size(68, 15);
+            lblProductID.TabIndex = 0;
+            lblProductID.Text = "Product id :";
             // 
-            // label2
+            // lblProductName
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(40, 54);
-            label2.Name = "label2";
-            label2.Size = new Size(90, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Product Name :";
+            lblProductName.AutoSize = true;
+            lblProductName.Location = new Point(40, 54);
+            lblProductName.Name = "lblProductName";
+            lblProductName.Size = new Size(90, 15);
+            lblProductName.TabIndex = 1;
+            lblProductName.Text = "Product Name :";
             // 
-            // label3
+            // lblPrice
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(40, 89);
-            label3.Name = "label3";
-            label3.Size = new Size(39, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Price :";
+            lblPrice.AutoSize = true;
+            lblPrice.Location = new Point(40, 131);
+            lblPrice.Name = "lblPrice";
+            lblPrice.Size = new Size(39, 15);
+            lblPrice.TabIndex = 2;
+            lblPrice.Text = "Price :";
             // 
-            // label4
+            // lblStockQuantity
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(40, 120);
-            label4.Name = "label4";
-            label4.Size = new Size(61, 15);
-            label4.TabIndex = 3;
-            label4.Text = "Category :";
+            lblStockQuantity.AutoSize = true;
+            lblStockQuantity.Location = new Point(40, 162);
+            lblStockQuantity.Name = "lblStockQuantity";
+            lblStockQuantity.Size = new Size(91, 15);
+            lblStockQuantity.TabIndex = 3;
+            lblStockQuantity.Text = "Stock Quantity :";
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(75, 159);
+            btnAdd.Location = new Point(501, 34);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 23);
+            btnAdd.Size = new Size(174, 54);
             btnAdd.TabIndex = 4;
             btnAdd.Text = "ADD";
             btnAdd.UseVisualStyleBackColor = true;
@@ -96,9 +94,9 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(156, 159);
+            btnEdit.Location = new Point(681, 34);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(75, 23);
+            btnEdit.Size = new Size(174, 54);
             btnEdit.TabIndex = 5;
             btnEdit.Text = "EDIT";
             btnEdit.UseVisualStyleBackColor = true;
@@ -106,9 +104,9 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(237, 159);
+            btnDelete.Location = new Point(501, 94);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(75, 23);
+            btnDelete.Size = new Size(174, 54);
             btnDelete.TabIndex = 6;
             btnDelete.Text = "DELETE";
             btnDelete.UseVisualStyleBackColor = true;
@@ -116,9 +114,9 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(318, 159);
+            btnClear.Location = new Point(681, 94);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(75, 23);
+            btnClear.Size = new Size(174, 54);
             btnClear.TabIndex = 7;
             btnClear.Text = "CLEAR";
             btnClear.UseVisualStyleBackColor = true;
@@ -126,95 +124,84 @@
             // 
             // dgvProducts
             // 
+            dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProducts.BackgroundColor = SystemColors.Control;
             dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProducts.Columns.AddRange(new DataGridViewColumn[] { id, name, price, category });
-            dgvProducts.Location = new Point(40, 188);
+            dgvProducts.Location = new Point(40, 193);
             dgvProducts.Name = "dgvProducts";
             dgvProducts.RowHeadersVisible = false;
             dgvProducts.RowHeadersWidth = 51;
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProducts.Size = new Size(403, 217);
+            dgvProducts.Size = new Size(835, 250);
             dgvProducts.TabIndex = 8;
+            dgvProducts.CellClick += dgvProducts_CellClick;
             dgvProducts.CellContentClick += dgvProducts_CellContentClick;
-            // 
-            // id
-            // 
-            id.HeaderText = "ID";
-            id.MinimumWidth = 6;
-            id.Name = "id";
-            id.Width = 50;
-            // 
-            // name
-            // 
-            name.HeaderText = "NAME";
-            name.MinimumWidth = 6;
-            name.Name = "name";
-            name.Width = 155;
-            // 
-            // price
-            // 
-            price.HeaderText = "PRICE";
-            price.MinimumWidth = 6;
-            price.Name = "price";
-            price.Width = 125;
-            // 
-            // category
-            // 
-            category.HeaderText = "CATEGORY";
-            category.MinimumWidth = 6;
-            category.Name = "category";
-            category.Width = 127;
             // 
             // txtProductName
             // 
-            txtProductName.Location = new Point(130, 46);
+            txtProductName.Location = new Point(136, 46);
             txtProductName.Name = "txtProductName";
             txtProductName.Size = new Size(305, 23);
             txtProductName.TabIndex = 10;
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(130, 81);
+            txtPrice.Location = new Point(136, 123);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(174, 23);
             txtPrice.TabIndex = 11;
             // 
-            // txtProductId
+            // txtProductID
             // 
-            txtProductId.Location = new Point(130, 14);
-            txtProductId.Name = "txtProductId";
-            txtProductId.Size = new Size(305, 23);
-            txtProductId.TabIndex = 9;
+            txtProductID.Location = new Point(136, 14);
+            txtProductID.Name = "txtProductID";
+            txtProductID.Size = new Size(305, 23);
+            txtProductID.TabIndex = 9;
             // 
-            // cmbCategory
+            // txtDescription
             // 
-            cmbCategory.FormattingEnabled = true;
-            cmbCategory.Items.AddRange(new object[] { "-Select Category-", "Drinks", "Bread & Pastry", "Snacks", "Vegetables" });
-            cmbCategory.Location = new Point(130, 112);
-            cmbCategory.Name = "cmbCategory";
-            cmbCategory.Size = new Size(174, 23);
-            cmbCategory.TabIndex = 12;
+            txtDescription.Location = new Point(136, 85);
+            txtDescription.Name = "txtDescription";
+            txtDescription.Size = new Size(305, 23);
+            txtDescription.TabIndex = 14;
+            // 
+            // lblDescription
+            // 
+            lblDescription.AutoSize = true;
+            lblDescription.Location = new Point(40, 93);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(73, 15);
+            lblDescription.TabIndex = 13;
+            lblDescription.Text = "Description :";
+            // 
+            // txtStockQuantity
+            // 
+            txtStockQuantity.Location = new Point(136, 159);
+            txtStockQuantity.Name = "txtStockQuantity";
+            txtStockQuantity.Size = new Size(174, 23);
+            txtStockQuantity.TabIndex = 15;
             // 
             // frmProduct
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSeaGreen;
-            ClientSize = new Size(493, 416);
-            Controls.Add(cmbCategory);
+            ClientSize = new Size(900, 455);
+            Controls.Add(txtStockQuantity);
+            Controls.Add(txtDescription);
+            Controls.Add(lblDescription);
             Controls.Add(dgvProducts);
             Controls.Add(txtPrice);
-            Controls.Add(txtProductId);
+            Controls.Add(txtProductID);
             Controls.Add(txtProductName);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(lblStockQuantity);
+            Controls.Add(lblPrice);
+            Controls.Add(lblProductName);
+            Controls.Add(lblProductID);
             Name = "frmProduct";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Product Maintenance";
@@ -226,10 +213,10 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
+        private Label lblProductID;
+        private Label lblProductName;
+        private Label lblPrice;
+        private Label lblStockQuantity;
         private Button btnAdd;
         private Button btnEdit;
         private Button btnDelete;
@@ -237,11 +224,9 @@
         private DataGridView dgvProducts;
         private TextBox txtProductName;
         private TextBox txtPrice;
-        private TextBox txtProductId;
-        private ComboBox cmbCategory;
-        private DataGridViewTextBoxColumn id;
-        private DataGridViewTextBoxColumn name;
-        private DataGridViewTextBoxColumn price;
-        private DataGridViewTextBoxColumn category;
+        private TextBox txtProductID;
+        private TextBox txtDescription;
+        private Label lblDescription;
+        private TextBox txtStockQuantity;
     }
 }

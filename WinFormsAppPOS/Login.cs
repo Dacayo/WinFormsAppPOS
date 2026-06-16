@@ -12,6 +12,7 @@ namespace WinFormsAppPOS
 {
     public partial class frmLogin : Form
     {
+        string connectionString = "Server=localhost;Database=pos_db;Uid=root;Pwd=;";
         public frmLogin()
         {
             InitializeComponent();
@@ -19,48 +20,38 @@ namespace WinFormsAppPOS
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string connectionString = "Server=localhost;Database=pos_db;Uid=root;Pwd=;";
-
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-
-                    string sqlQuery = "SELECT * FROM users WHERE username = '" + txtUsername.Text + "' AND password = '" + txtPassword.Text + "' ";
+                    string sqlQuery = "SELECT * FROM Users WHERE Username = '" + txtUsername.Text + "' AND Password = '" + txtPassword.Text + "' ";
 
                     using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
                     {
-                        //cmd.Parameters.AddWithValue("@username", txtUsername.Text);
-                        //cmd.Parameters.AddWithValue("@password", txtPassword.Text);
-
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-
-
                             if (reader.Read())
                             {
-                                MessageBox.Show("Login Successful!");
-
-                                frmMain frm = new frmMain();
-                                frm.Show();
+                                MessageBox.Show("Login Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                frmMain main = new frmMain();
+                                main.Show();
                                 this.Hide();
-
                             }
                             else
                             {
-                                MessageBox.Show("Invalid Username or Password.");
-                                return;
+                                MessageBox.Show("Invalid Username or Password!", "Warning", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                             }
                         }
+                        conn.Dispose();
                     }
                 }
-                catch (Exception ex)
+
+                catch (Exception ex) 
                 {
-                    MessageBox.Show(ex.Message + "\nlOGIN ERROR");
+                    MessageBox.Show(ex.Message + "\nLOGIN ERROR");
                 }
             }
-
         }
 
         private void btnRegister_Click(object sender, EventArgs e)

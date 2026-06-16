@@ -43,6 +43,8 @@
             txtDescription = new TextBox();
             lblDescription = new Label();
             txtStockQuantity = new TextBox();
+            lblCategory = new Label();
+            cmbCategory = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             SuspendLayout();
             // 
@@ -84,7 +86,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(501, 34);
+            btnAdd.Location = new Point(501, 63);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(174, 54);
             btnAdd.TabIndex = 4;
@@ -94,7 +96,7 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(681, 34);
+            btnEdit.Location = new Point(681, 63);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(174, 54);
             btnEdit.TabIndex = 5;
@@ -104,7 +106,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(501, 94);
+            btnDelete.Location = new Point(501, 123);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(174, 54);
             btnDelete.TabIndex = 6;
@@ -114,7 +116,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(681, 94);
+            btnClear.Location = new Point(681, 123);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(174, 54);
             btnClear.TabIndex = 7;
@@ -181,12 +183,32 @@
             txtStockQuantity.Size = new Size(174, 23);
             txtStockQuantity.TabIndex = 15;
             // 
+            // lblCategory
+            // 
+            lblCategory.AutoSize = true;
+            lblCategory.Location = new Point(502, 17);
+            lblCategory.Name = "lblCategory";
+            lblCategory.Size = new Size(58, 15);
+            lblCategory.TabIndex = 16;
+            lblCategory.Text = "Category:";
+            // 
+            // cmbCategory
+            // 
+            cmbCategory.FormattingEnabled = true;
+            cmbCategory.Location = new Point(566, 14);
+            cmbCategory.Name = "cmbCategory";
+            cmbCategory.Size = new Size(245, 23);
+            cmbCategory.TabIndex = 17;
+            cmbCategory.SelectedIndexChanged += cmbCategory_SelectedIndexChanged;
+            // 
             // frmProduct
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSeaGreen;
             ClientSize = new Size(900, 455);
+            Controls.Add(cmbCategory);
+            Controls.Add(lblCategory);
             Controls.Add(txtStockQuantity);
             Controls.Add(txtDescription);
             Controls.Add(lblDescription);
@@ -228,5 +250,7 @@
         private TextBox txtDescription;
         private Label lblDescription;
         private TextBox txtStockQuantity;
+        private Label lblCategory;
+        private ComboBox cmbCategory;
     }
 }

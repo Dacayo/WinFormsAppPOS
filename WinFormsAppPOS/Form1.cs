@@ -27,7 +27,8 @@ namespace WinFormsAppPOS
 
         private void btnCategory_Click(object sender, EventArgs e)
         {
-
+            frmCategory category = new frmCategory();
+            category.Show();
         }
 
         private void btnCustomer_Click(object sender, EventArgs e)
@@ -35,6 +36,12 @@ namespace WinFormsAppPOS
             frmCustomer cm = new frmCustomer();
             cm.Show();
             this.Close();
+        }
+
+        private void btnUser_Click(object sender, EventArgs e)
+        {
+            frmUser user = new frmUser();
+            user.Show();
         }
     }
 }

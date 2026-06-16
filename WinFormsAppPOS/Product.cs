@@ -34,11 +34,41 @@ namespace WinFormsAppPOS
                     adapter.Fill(dt);
 
                     dgvProducts.DataSource = dt;
+                    conn.Dispose();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message + "\nProducts ERROR");
-                    conn.Dispose();
+
+                }
+            }
+        }
+
+        public void showCategory()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string sqlQuery = "SELECT CategoryName from Categories";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader()) {
+                            while (reader.Read())
+                            {
+                                cmbCategory.Items.Add(reader["CategoryName"].ToString());
+                            }
+                            reader.Close();
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nCategory ERROR");
+
                 }
             }
         }
@@ -61,7 +91,7 @@ namespace WinFormsAppPOS
                         if (result != null)
                         {
                             int lastID = Convert.ToInt32(result);
-                            customerID = (lastID + 1).ToString("D3");
+                            customerID = (lastID + 1).ToString("000");
                         }
                     }
                 }
@@ -70,11 +100,10 @@ namespace WinFormsAppPOS
                 {
 
                 }
-
             }
-
             return txtProductID.Text = customerID;
         }
+
         public void Reset()
         {
             txtProductID.Enabled = false;
@@ -82,6 +111,7 @@ namespace WinFormsAppPOS
             txtDescription.Enabled = false;
             txtPrice.Enabled = false;
             txtStockQuantity.Enabled = false;
+            cmbCategory.Enabled = false;
         }
         public void Clear()
         {
@@ -98,6 +128,7 @@ namespace WinFormsAppPOS
             txtDescription.Enabled = true;
             txtPrice.Enabled = true;
             txtStockQuantity.Enabled = true;
+            cmbCategory.Enabled = true;
         }
 
         public void inputValue()
@@ -107,7 +138,6 @@ namespace WinFormsAppPOS
             txtDescription.Text = dgvProducts.SelectedRows[0].Cells[2].Value.ToString();
             txtPrice.Text = dgvProducts.SelectedRows[0].Cells[3].Value.ToString();
             txtStockQuantity.Text = dgvProducts.SelectedRows[0].Cells[4].Value.ToString();
-
         }
 
 
@@ -142,6 +172,12 @@ namespace WinFormsAppPOS
                     txtStockQuantity.Focus();
                 }
 
+                else if (string.IsNullOrEmpty(cmbCategory.Text))
+                {
+                    MessageBox.Show("Fill up required field.");
+                    txtStockQuantity.Focus();
+                }
+
                 else
                 {
                     using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -149,16 +185,16 @@ namespace WinFormsAppPOS
                         try
                         {
                             conn.Open();
-                            string sqlQuery = "INSERT INTO Products (ProductID, ProductName, Description, UnitPrice, StockQuantity)" +
-                                              "VALUES (@ProductID, @ProductName, @Description, @UnitPrice, @StockQuantity)";
+                            string sqlQuery = "INSERT INTO Products (ProductName, Description, UnitPrice, StockQuantity, Category)" +
+                                              "VALUES (@ProductName, @Description, @UnitPrice, @StockQuantity, @Category)";
 
                             using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
                             {
-                                cmd.Parameters.AddWithValue("@ProductID", txtProductID.Text);
                                 cmd.Parameters.AddWithValue("@ProductName", txtProductName.Text);
                                 cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
                                 cmd.Parameters.AddWithValue("@UnitPrice", txtPrice.Text);
                                 cmd.Parameters.AddWithValue("@StockQuantity", txtStockQuantity.Text);
+                                cmd.Parameters.AddWithValue("@Category", cmbCategory.Text);
                                 cmd.ExecuteNonQuery();
 
                                 MessageBox.Show("Product added successfully!", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -191,7 +227,6 @@ namespace WinFormsAppPOS
         {
             if (btnEdit.Text.Equals("EDIT"))
             {
-                inputValue();
                 enable();
                 btnEdit.Text = "UPDATE";
                 txtProductName.Focus();
@@ -207,9 +242,10 @@ namespace WinFormsAppPOS
                         conn.Open();
                         string sqlQuery = "UPDATE Products " +
                                           "SET ProductName = @ProductName, " +
-                                            "Description = @Description, " +
-                                            "UnitPrice = @UnitPrice, " +
-                                            "StockQuantity = @StockQuantity " +
+                                          "Description = @Description, " +
+                                          "UnitPrice = @UnitPrice, " +
+                                          "StockQuantity = @StockQuantity, " +
+                                          "Category = @Category " +
                                           "WHERE ProductID = @ProductID";
 
                         using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
@@ -219,6 +255,7 @@ namespace WinFormsAppPOS
                             cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
                             cmd.Parameters.AddWithValue("@UnitPrice", txtPrice.Text);
                             cmd.Parameters.AddWithValue("@StockQuantity", txtStockQuantity.Text);
+                            cmd.Parameters.AddWithValue("@Category", cmbCategory.Text);
                             cmd.ExecuteNonQuery();
 
                             MessageBox.Show("Product updated successfully!", "Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -235,7 +272,6 @@ namespace WinFormsAppPOS
                     Clear();
                     showData();
                     btnEdit.Text = "EDIT";
-                    return;
                 }
             }
         }
@@ -243,6 +279,7 @@ namespace WinFormsAppPOS
         private void frmProduct_Load(object sender, EventArgs e)
         {
             showData();
+            showCategory();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -268,7 +305,7 @@ namespace WinFormsAppPOS
                             cmd.Parameters.AddWithValue("@ProductID", txtProductID.Text);
                             cmd.ExecuteNonQuery();
 
-                            MessageBox.Show("Product deleted successfully!", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Product deleted successfully!", "Deleted!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             conn.Dispose();
                         }
@@ -296,12 +333,18 @@ namespace WinFormsAppPOS
                 txtDescription.Text = row.Cells["Description"].Value.ToString();
                 txtPrice.Text = row.Cells["UnitPrice"].Value.ToString();
                 txtStockQuantity.Text = row.Cells["StockQuantity"].Value.ToString();
+                cmbCategory.Text = row.Cells["Category"].Value.ToString();
             }
         }
 
         private void dgvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
         }
     }
 }

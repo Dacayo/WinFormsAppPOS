@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             pnlMenu = new Panel();
+            pnlSales = new Panel();
+            btnSales = new Button();
             btnSettings = new Button();
             btnReports = new Button();
             btnTransaction = new Button();
@@ -40,13 +42,11 @@
             btnCustomer = new Button();
             btnCategory = new Button();
             btnProducts = new Button();
-            pnlSales = new Panel();
-            btnSales = new Button();
             label1 = new Label();
             pnlMenu.SuspendLayout();
+            pnlSales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlMaintenance.SuspendLayout();
-            pnlSales.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMenu
@@ -61,6 +61,26 @@
             pnlMenu.Name = "pnlMenu";
             pnlMenu.Size = new Size(121, 365);
             pnlMenu.TabIndex = 0;
+            // 
+            // pnlSales
+            // 
+            pnlSales.BackColor = Color.Transparent;
+            pnlSales.Controls.Add(btnSales);
+            pnlSales.Location = new Point(120, 278);
+            pnlSales.Name = "pnlSales";
+            pnlSales.Size = new Size(672, 303);
+            pnlSales.TabIndex = 4;
+            pnlSales.Visible = false;
+            // 
+            // btnSales
+            // 
+            btnSales.BackColor = Color.PaleTurquoise;
+            btnSales.Location = new Point(220, 86);
+            btnSales.Name = "btnSales";
+            btnSales.Size = new Size(163, 82);
+            btnSales.TabIndex = 0;
+            btnSales.Text = "SALES";
+            btnSales.UseVisualStyleBackColor = false;
             // 
             // btnSettings
             // 
@@ -134,6 +154,7 @@
             btnUser.TabIndex = 3;
             btnUser.Text = "USER";
             btnUser.UseVisualStyleBackColor = false;
+            btnUser.Click += btnUser_Click;
             // 
             // btnCustomer
             // 
@@ -168,26 +189,6 @@
             btnProducts.UseVisualStyleBackColor = false;
             btnProducts.Click += btnProducts_Click;
             // 
-            // pnlSales
-            // 
-            pnlSales.BackColor = Color.Transparent;
-            pnlSales.Controls.Add(btnSales);
-            pnlSales.Location = new Point(120, 278);
-            pnlSales.Name = "pnlSales";
-            pnlSales.Size = new Size(672, 303);
-            pnlSales.TabIndex = 4;
-            pnlSales.Visible = false;
-            // 
-            // btnSales
-            // 
-            btnSales.BackColor = Color.PaleTurquoise;
-            btnSales.Location = new Point(220, 86);
-            btnSales.Name = "btnSales";
-            btnSales.Size = new Size(163, 82);
-            btnSales.TabIndex = 0;
-            btnSales.Text = "SALES";
-            btnSales.UseVisualStyleBackColor = false;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -220,9 +221,9 @@
             Text = "POS Main";
             TransparencyKey = Color.Gray;
             pnlMenu.ResumeLayout(false);
+            pnlSales.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlMaintenance.ResumeLayout(false);
-            pnlSales.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }

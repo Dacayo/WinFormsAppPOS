@@ -10,13 +10,13 @@ namespace WinFormsAppPOS
         private void btnMaintenance_Click(object sender, EventArgs e)
         {
             pnlMaintenance.Visible = true;
-            pnlSales.Visible = false;
+            pnlSaless.Visible = false;
         }
 
         private void btnTransaction_Click(object sender, EventArgs e)
         {
             pnlMaintenance.Visible = false;
-            pnlSales.Visible = true;
+            pnlSaless.Visible = true;
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
@@ -42,6 +42,18 @@ namespace WinFormsAppPOS
         {
             frmUser user = new frmUser();
             user.Show();
+        }
+
+        private void btnSaless_Click(object sender, EventArgs e)
+        {
+            frmSales sales = new frmSales();
+            sales.Show();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            pnlMaintenance.Visible = false;
+            pnlSaless.Visible = false;
         }
     }
 }

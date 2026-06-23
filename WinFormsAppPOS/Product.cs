@@ -120,6 +120,7 @@ namespace WinFormsAppPOS
             txtDescription.Clear();
             txtPrice.Clear();
             txtStockQuantity.Clear();
+            cmbCategory.Text = string.Empty;
         }
         public void enable()
         {
@@ -149,6 +150,9 @@ namespace WinFormsAppPOS
                 enable();
                 btnAdd.Text = "SAVE";
                 txtProductName.Focus();
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+                btnClear.Enabled = false;
                 return;
             }
 
@@ -230,6 +234,9 @@ namespace WinFormsAppPOS
                 enable();
                 btnEdit.Text = "UPDATE";
                 txtProductName.Focus();
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
+                btnClear.Enabled = false;
                 return;
             }
 

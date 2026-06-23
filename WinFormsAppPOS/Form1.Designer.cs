@@ -43,10 +43,13 @@
             btnCategory = new Button();
             btnProducts = new Button();
             label1 = new Label();
+            pnlSaless = new Panel();
+            btnSaless = new Button();
             pnlMenu.SuspendLayout();
             pnlSales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlMaintenance.SuspendLayout();
+            pnlSaless.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMenu
@@ -139,9 +142,9 @@
             pnlMaintenance.Controls.Add(btnCustomer);
             pnlMaintenance.Controls.Add(btnCategory);
             pnlMaintenance.Controls.Add(btnProducts);
-            pnlMaintenance.Location = new Point(134, 55);
+            pnlMaintenance.Location = new Point(143, 64);
             pnlMaintenance.Name = "pnlMaintenance";
-            pnlMaintenance.Size = new Size(658, 343);
+            pnlMaintenance.Size = new Size(619, 343);
             pnlMaintenance.TabIndex = 3;
             pnlMaintenance.Visible = false;
             // 
@@ -201,6 +204,26 @@
             label1.TabIndex = 5;
             label1.Text = "POINT OF SALES MAINTENANCE";
             // 
+            // pnlSaless
+            // 
+            pnlSaless.BackColor = Color.Transparent;
+            pnlSaless.Controls.Add(btnSaless);
+            pnlSaless.Location = new Point(146, 48);
+            pnlSaless.Name = "pnlSaless";
+            pnlSaless.Size = new Size(613, 340);
+            pnlSaless.TabIndex = 6;
+            // 
+            // btnSaless
+            // 
+            btnSaless.BackColor = Color.PaleTurquoise;
+            btnSaless.Location = new Point(225, 129);
+            btnSaless.Name = "btnSaless";
+            btnSaless.Size = new Size(163, 82);
+            btnSaless.TabIndex = 1;
+            btnSaless.Text = "SALES";
+            btnSaless.UseVisualStyleBackColor = false;
+            btnSaless.Click += btnSaless_Click;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -208,6 +231,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(802, 450);
+            Controls.Add(pnlSaless);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(pnlMenu);
@@ -220,10 +244,12 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "POS Main";
             TransparencyKey = Color.Gray;
+            Load += frmMain_Load;
             pnlMenu.ResumeLayout(false);
             pnlSales.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlMaintenance.ResumeLayout(false);
+            pnlSaless.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -244,5 +270,7 @@
         private Panel pnlSales;
         private Button btnSales;
         private Label label1;
+        private Panel pnlSaless;
+        private Button btnSaless;
     }
 }

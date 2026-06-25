@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 
 namespace WinFormsAppPOS
@@ -33,6 +34,8 @@ namespace WinFormsAppPOS
                         {
                             if (reader.Read())
                             {
+                                IDvalues.UserID = reader.GetInt32("UserID");
+
                                 MessageBox.Show("Login Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 frmMain main = new frmMain();
                                 main.Show();

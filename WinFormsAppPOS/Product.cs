@@ -75,7 +75,7 @@ namespace WinFormsAppPOS
 
         public string getId()
         {
-            string customerID = "001";
+            string productID = "001";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -91,7 +91,7 @@ namespace WinFormsAppPOS
                         if (result != null)
                         {
                             int lastID = Convert.ToInt32(result);
-                            customerID = (lastID + 1).ToString("000");
+                            productID = (lastID + 1).ToString("000");
                         }
                     }
                 }
@@ -101,7 +101,7 @@ namespace WinFormsAppPOS
 
                 }
             }
-            return txtProductID.Text = customerID;
+            return txtProductID.Text = productID;
         }
 
         public void Reset()
@@ -189,11 +189,12 @@ namespace WinFormsAppPOS
                         try
                         {
                             conn.Open();
-                            string sqlQuery = "INSERT INTO Products (ProductName, Description, UnitPrice, StockQuantity, Category)" +
-                                              "VALUES (@ProductName, @Description, @UnitPrice, @StockQuantity, @Category)";
+                            string sqlQuery = "INSERT INTO Products (ProductID, ProductName, Description, UnitPrice, StockQuantity, Category)" +
+                                              "VALUES (@ProductID, @ProductName, @Description, @UnitPrice, @StockQuantity, @Category)";
 
                             using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
                             {
+                                cmd.Parameters.AddWithValue("@ProductID", txtProductID.Text);
                                 cmd.Parameters.AddWithValue("@ProductName", txtProductName.Text);
                                 cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
                                 cmd.Parameters.AddWithValue("@UnitPrice", txtPrice.Text);
